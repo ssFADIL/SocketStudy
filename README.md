@@ -53,6 +53,66 @@ Socket programming finds applications in various domains, including web developm
 4.	Networked Games: Online multiplayer games rely on socket programming to facilitate communication between game clients and servers.
 5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
 
+## Program:
+import socket
+import threading
+import time 
+
+def server():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("127.0.0.1", 5002))
+    s.listen(1)
+    print("Server ready...")
+
+    conn, addr = s.accept()
+    print("Connected:", addr)
+
+    data = conn.recv(1024).decode()
+    print("Received from client:", data)
+
+    # Process message (count words & reverse string)
+    word_count = len(data.split())
+    reversed_msg = data[::-1]
+
+    reply = f"Words: {word_count}, Reversed: {reversed_msg}"
+    conn.send(reply.encode())
+
+    conn.close()
+    s.close()
+
+def client():
+    time.sleep(1)
+
+    c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    c.connect(("127.0.0.1", 5002))
+
+    message = "Networking is fun"
+    print("Sending:", message)
+    c.send(message.encode())
+
+    response = c.recv(1024).decode()
+    print("Processed response:", response)
+
+    c.close()
+
+server_thread = threading.Thread(target=server)
+client_thread = threading.Thread(target=client)
+
+server_thread.start()
+client_thread.start()
+
+server_thread.join()
+client_thread.join()
+
+## Output:
+PS C:\Users\acer> & C:/ProgramData/anaconda3/python.exe "c:/Users/acer/computer network/exp1"
+Server ready...
+Sending: Networking is fun
+Connected: ('127.0.0.1', 62263)
+Received from client: Networking is fun
+Processed response: Words: 3, Reversed: nuf si gnikrowteN
+PS C:\Users\acer> 
+
 
 ## Result:
 Thus the study of Socket Programming Completed Successfully
