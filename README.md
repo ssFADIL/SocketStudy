@@ -105,13 +105,11 @@ server_thread.join()
 client_thread.join()
 
 ## Output:
-PS C:\Users\acer> & C:/ProgramData/anaconda3/python.exe "c:/Users/acer/computer network/exp1"
 Server ready...
 Sending: Networking is fun
 Connected: ('127.0.0.1', 62263)
 Received from client: Networking is fun
 Processed response: Words: 3, Reversed: nuf si gnikrowteN
-PS C:\Users\acer> 
 
 
 ## Result:
